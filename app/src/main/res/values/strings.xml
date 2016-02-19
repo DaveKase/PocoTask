@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Poco Task</string>
+    <string name="welcome_text">Welcome to PocoTask app. You can start by registering or logging in.</string>
+    <string name="welcome_choose">What would you like to do next?</string>
+    <string name="btn_login">Login</string>
+    <string name="or_text">Or</string>
+    <string name="btn_register">Register</string>
+
+    <string name="login_name">Login</string>
+    <string name="email_text">E-mail</string>
+    <string name="password_text">Password</string>
+
+    <string name="login_success_name">Logged In</string>
+    <string name="success_text">You are now successfully logged in!</string>
+
+    <string name="info_text">Thank you for registering with PocoTask app. The app will guide you through
+        the registration steps. All fields are required to fill in. First you have to enter your
+        e-mail address and choose a password (has to be at least 6 characters long), after that you
+        have to fill in your location, after which we will register you and you can log in the next
+        time you use this app.
+    </string>
+    <string name="btn_next">Next</string>
+
+    <string name="terms_text">I agree with service terms</string>
+
+    <string name="country_text">Country</string>
+    <string name="city_text">City</string>
+    <string name="zip_text">Postal Code</string>
+
+    <string name="registration_success_name">Success</string>
+    <string name="registration_succes_text">Congratulations! You have now registered with Poco Task
+        app. Happy using!
+    </string>
+</resources>

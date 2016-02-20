@@ -2,8 +2,6 @@ package ee.taavikase.pocotask.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import java.net.HttpURLConnection;
@@ -12,30 +10,12 @@ import ee.taavikase.pocotask.R;
 import ee.taavikase.pocotask.web.Sender;
 
 public class LoginActivity extends BaseActivity {
-    private static final String TAG = "LoginActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        try {
-            //noinspection ConstantConditions
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        } catch (NullPointerException e) {
-            Log.e(TAG, "No actionbar");
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        setActionBar("LoginActivity", "");
     }
 
     public void login(View v) {

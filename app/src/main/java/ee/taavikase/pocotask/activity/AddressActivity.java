@@ -3,7 +3,6 @@ package ee.taavikase.pocotask.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -15,41 +14,19 @@ import ee.taavikase.pocotask.web.Sender;
 
 public class AddressActivity extends BaseActivity {
     private static final String TAG = "AddressActivity";
-    private int tryOuts = 0;
+    private int mTryOuts = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
 
-        setActionBar();
+        String email = getIntent().getExtras().getString("email");
+        assert email != null;
+        String substringedMail = email.substring(0, 5);
+        setActionBar("AddressActivity", "Registration (3/3) " + substringedMail);
+
         setSpinner();
-    }
-
-    private void setActionBar() {
-        try {
-            //noinspection ConstantConditions
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            String email = getIntent().getExtras().getString("email");
-
-            assert email != null; // IDE thinks it may be null, but doesn't see I am already catching NPE :D
-
-            String substringedMail = email.substring(0, 5);
-            getSupportActionBar().setTitle("Registration (3/3) " + substringedMail);
-        } catch (NullPointerException e) {
-            Log.e(TAG, "No actionbar");
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void setSpinner() {
@@ -66,7 +43,7 @@ public class AddressActivity extends BaseActivity {
         String city = getTextFromEdits(R.id.cityEdit);
         String zipCode = getTextFromEdits(R.id.zipEdit);
 
-        if(isValidCity(city) && isValidZipCode(zipCode)) {
+        if (isValidCity(city) && isValidZipCode(zipCode)) {
             sendData(country, city, zipCode);
         }
     }
@@ -125,15 +102,14 @@ public class AddressActivity extends BaseActivity {
                     Intent intent = new Intent(AddressActivity.this, RegisterSuccessActivity.class);
                     startActivity(intent);
                     finish();
-                } else if (tryOuts < 3) {
-                    tryOuts++;
-                    Log.i(TAG, "tryOuts = " + tryOuts);
+                } else if (responseCode == HttpURLConnection.HTTP_CLIENT_TIMEOUT && mTryOuts < 3) {
+                    mTryOuts++;
                     sendData(getCountryCode(), getTextFromEdits(R.id.cityEdit),
                             getTextFromEdits(R.id.zipEdit));
                 } else {
                     hideProgress(R.id.nextButton, R.id.progressBar);
                     showAlert("Error with registering");
-                    tryOuts = 0;
+                    mTryOuts = 0;
                 }
             }
         });

@@ -17,5 +17,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="@string/registration_succes_text" />
+        android:text="@string/registration_success_text" />
 </RelativeLayout>

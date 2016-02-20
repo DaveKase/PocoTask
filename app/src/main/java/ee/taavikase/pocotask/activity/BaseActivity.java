@@ -5,24 +5,49 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 public class BaseActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    public String getTextFromEdits(int editTextId) {
+    protected void setActionBar(String tag, String title) {
+        try {
+            //noinspection ConstantConditions
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            if (title != null && !title.equals("")) {
+                getSupportActionBar().setTitle(title);
+            }
+        } catch (NullPointerException e) {
+            Log.e(tag, "No actionbar");
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    protected String getTextFromEdits(int editTextId) {
         EditText editText = (EditText) findViewById(editTextId);
         return editText.getText().toString();
     }
 
-    public void showAlert(String text) {
+    protected void showAlert(String text) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Error");
@@ -37,8 +62,8 @@ public class BaseActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public boolean validEmail(String email) {
-        boolean isValid =  !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS
+    protected boolean validEmail(String email) {
+        boolean isValid = !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS
                 .matcher(email).matches();
 
         if (!isValid) {
@@ -48,7 +73,7 @@ public class BaseActivity extends AppCompatActivity {
         return isValid;
     }
 
-    public void showProgress(int loginId, int progressId) {
+    protected void showProgress(int loginId, int progressId) {
         Button loginButton = (Button) findViewById(loginId);
         loginButton.setEnabled(false);
 
@@ -56,7 +81,7 @@ public class BaseActivity extends AppCompatActivity {
         progress.setVisibility(View.VISIBLE);
     }
 
-    public void hideProgress(int loginId, int progressId) {
+    protected void hideProgress(int loginId, int progressId) {
         Button loginButton = (Button) findViewById(loginId);
         loginButton.setEnabled(true);
 

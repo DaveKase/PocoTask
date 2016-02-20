@@ -27,8 +27,8 @@
     <string name="city_text">City</string>
     <string name="zip_text">Postal Code</string>
 
-    <string name="registration_success_name">Success</string>
-    <string name="registration_succes_text">Congratulations! You have now registered with Poco Task
+    <string name="registration_success_name">Registration successful</string>
+    <string name="registration_success_text">Congratulations! You have now registered with Poco Task
         app. Happy using!
     </string>
 </resources>

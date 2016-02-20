@@ -47,15 +47,15 @@ public class Sender {
     private static int send(String uri, JSONObject jObject) {
         try {
             URL url = new URL(uri);
-            HttpURLConnection  httpConn = setUpConnection(url);
-            DataOutputStream wr = new DataOutputStream(httpConn.getOutputStream ());
+            HttpURLConnection httpConn = setUpConnection(url);
+            DataOutputStream wr = new DataOutputStream(httpConn.getOutputStream());
             wr.writeBytes(jObject.toString());
             wr.flush();
             wr.close();
 
             int HttpResult = httpConn.getResponseCode();
 
-            if (HttpResult != HttpURLConnection.HTTP_OK){
+            if (HttpResult != HttpURLConnection.HTTP_OK) {
                 Log.i(TAG, HttpResult + " Error: " + httpConn.getResponseMessage());
             }
 
@@ -68,7 +68,7 @@ public class Sender {
     }
 
     private static HttpURLConnection setUpConnection(URL url) throws IOException {
-        HttpURLConnection  httpConn = (HttpURLConnection) url.openConnection();
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         httpConn.setDoInput(true);
         httpConn.setDoOutput(true);
         httpConn.setUseCaches(false);
